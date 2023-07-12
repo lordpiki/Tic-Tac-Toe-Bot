@@ -5,7 +5,6 @@ int* getEmptySpots(int* board)
 	int i = 0, count = 1;
 	int* emptySpots = (int*)malloc(sizeof(int*) * count);
 	emptySpots[0] = 0;
-
 	
 	for (i = 0; i < BOARD_SIZE*BOARD_SIZE; i++)
 	{
@@ -22,12 +21,6 @@ int* getEmptySpots(int* board)
 		return NULL;
 	}
 
-	//printf("\nThe Empty slots are ");
-	//for (i = 0; i < count; i++)
-	//{
-	//	printf("%d, ", emptySpots[i]);
-	//}
-	//printf("\n");
 	return emptySpots + 1;
 }
 
@@ -56,10 +49,10 @@ int getMove(int* board, int turn, int playerTurn, bool isMain)
 		copy_boards(board, tempBoard);
 		tempBoard[emptySpots[i]] = turn;
 
-		winner = check_for_win(tempBoard);
-		if (winner == NONE)
+		winner = checkForWin(tempBoard);
+		if (winner == NO_WIN)
 		{
-			tempScore = getMove(tempBoard, switchTurns(turn), playerTurn, false, steps + 1);
+			tempScore = getMove(tempBoard, switchTurns(turn), playerTurn, false);
 			if (chosenScore == 999)
 			{
 				chosenScore = tempScore;

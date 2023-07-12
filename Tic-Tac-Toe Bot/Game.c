@@ -1,27 +1,25 @@
 #include "Game.h"
 
 
-int check_for_win(int board[])
+int checkForWin(int board[])
 {
-	if (check_for_player(board, X_TURN))
+	if (checkWinForPlayer(board, X_TURN))
 	{
-		//printf("X WON\n");
 		return X_TURN;
 	}
-	else if (check_for_player(board, O_TURN))
+	else if (checkWinForPlayer(board, O_TURN))
 	{
-		//printf("O WON\n");
 		return O_TURN;
 	}
 	else if (!getEmptySpots(board))
 	{
 		return TIE;
 	}
-	return NONE;
+	return NO_WIN;
 }
 
 
-bool check_for_player(int board[], int turn)
+bool checkWinForPlayer(int board[], int turn)
 {
 	int i = 0, j = 0, count = 0;
 	int possible_wins[][3] = { {0, 1, 2}, {3, 4, 5}, {6, 7, 8}, {0, 4, 8}, {2, 4, 6}, {0, 3, 6}, {1, 4, 7}, {2, 5, 8} };
@@ -47,4 +45,24 @@ bool check_for_player(int board[], int turn)
 int switchTurns(int turn)
 {
 	return -turn;
+}
+
+int checkPos(int board[])
+{
+	int pos = 0;
+	bool isValid = false;
+	printf("\nPlease enter your turn (1-9)\n");
+	do
+	{
+		scanf("%d", &pos); // getting position of user
+		getchar();
+
+		isValid = !(pos < 0 || pos > 9) && board[pos - 1] == 0;
+		if (!isValid)
+		{
+			printf("Please enter a valid spot!\n");
+		}
+	} while (!isValid);
+	
+	return pos;
 }

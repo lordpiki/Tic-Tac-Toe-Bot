@@ -12,5 +12,5 @@ void print_board(int board[])
 
 char convert(int turn)
 {
-	return turn == X_TURN ? 'X' : turn == O_TURN ? 'O' : turn == TIE ? 'N' : ' ';
+	return turn == X_TURN ? 'X' : turn == O_TURN ? 'O' : ' ';
 }

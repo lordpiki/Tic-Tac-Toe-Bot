@@ -1,43 +1,43 @@
-/*********************************
-* Class: MAGSHIMIM C2			 *
-* Week:                			 *
-* Name:                          *
-* Credits:                       *
-**********************************/
-
 #include "PCH.h"
 
 int main(void)
 {
 	int board[BOARD_SIZE*BOARD_SIZE] = { 0 };
-	int turn = X_TURN, pos = 0;
-	
+	int turn = X_TURN, pos = 0, winner = 0, playerTurn = 0;
 	do
 	{
-		
 		if (turn == X_TURN)
 		{
 			print_board(board);
-			printf("Best move is for %d is %d\n", turn, getMove(board, turn, turn, true) +1);
-			
-			printf("\nPlease enter your turn: ");
-			scanf("%d", &pos);
-			pos--;
-			getchar();
+			printf("Best move is for %c is %d\n", convert(turn), getMove(board, turn, turn, true) + 1); // suggestion for user
+
+			pos = checkPos(board);
+
+			pos--; // making pos - 1 to match board
 		}
 		else
 		{
-			pos = getMove(board, turn, turn, true);
-			printf("\nO is choosing %d", pos + 1);
+			pos = getMove(board, turn, turn, true); // getting bot move
+			printf("\nO is choosing %d\n", pos + 1);
 		}
 
-		board[pos] = turn;
-		turn = switchTurns(turn);
+		board[pos] = turn; // making move
+		turn = switchTurns(turn); // switching turns
 
-		
-	} while (check_for_win(board) == NONE);
+		winner = checkForWin(board); // getting winner
+
+	} while (winner == NO_WIN); // checking if game ended
+
 	print_board(board);
-	printf("%c won!", convert(check_for_win(board)));
+	if (winner == TIE)
+	{
+		printf("TIE!");
+	}
+	else
+	{
+		printf("%c won!", convert(checkForWin(board)));
+	}
+	printf("\n\nPress any key to exit.");
 
 	getchar();
 	return 0;
