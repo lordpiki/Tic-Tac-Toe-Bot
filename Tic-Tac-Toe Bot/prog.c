@@ -10,13 +10,6 @@ int main(int argc, char* argv[])
 	
 	int board[BOARD_SIZE*BOARD_SIZE] = { 0 };
 
-	printf("argc: %d\n", argc);
-	for (int i = 0; i < argc; i++)
-	{
-		printf(" %s\n", argv[i]);
-	}
-
-	printf("\nboard: \n");
 	for (int i = 0; i < 9; i++)
 	{
 		board[i] = argv[1][i * 2] - '0';
@@ -43,12 +36,9 @@ int main(int argc, char* argv[])
 		}
 		else
 		{
-			printf("reached here");
 			print_board(board);
+			return getMove(board, turn, turn, true); // getting bot move
 
-			pos = getMove(board, turn, turn, true); // getting bot move
-			printf("%d", pos);
-			return 0;
 		}
 
 		board[pos] = turn; // making move
