@@ -1,9 +1,35 @@
 #include "PCH.h"
 
-int main(void)
+int main(int argc, char* argv[])
 {
+	if (argc != 3) {
+		fprintf(stderr, "Usage: %s [current_board] [player_move]\n", argv[0]);
+		return 1;
+	}
+
+	
 	int board[BOARD_SIZE*BOARD_SIZE] = { 0 };
-	int turn = X_TURN, pos = 0, winner = 0, playerTurn = 0;
+
+	printf("argc: %d\n", argc);
+	for (int i = 0; i < argc; i++)
+	{
+		printf(" %s\n", argv[i]);
+	}
+
+	printf("\nboard: \n");
+	for (int i = 0; i < 9; i++)
+	{
+		board[i] = argv[1][i * 2] - '0';
+		if (board[i] == 2)
+		{
+			board[i] = O_TURN;
+		}
+//		printf(" %d %d\n", board[i], argv[1][i * 2]);
+	}
+
+
+	int turn = O_TURN, pos = 0, winner = 0, playerTurn = 0;
+
 	do
 	{
 		if (turn == X_TURN)
@@ -17,8 +43,12 @@ int main(void)
 		}
 		else
 		{
+			printf("reached here");
+			print_board(board);
+
 			pos = getMove(board, turn, turn, true); // getting bot move
-			printf("\nO is choosing %d\n", pos + 1);
+			printf("%d", pos);
+			return 0;
 		}
 
 		board[pos] = turn; // making move

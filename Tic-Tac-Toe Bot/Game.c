@@ -44,7 +44,7 @@ bool checkWinForPlayer(int board[], int turn)
 
 int switchTurns(int turn)
 {
-	return -turn;
+	turn = turn == X_TURN ? O_TURN : X_TURN;
 }
 
 int checkPos(int board[])
